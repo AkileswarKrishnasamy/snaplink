@@ -1,8 +1,11 @@
 package com.snaplink.user_service.utils;
 
+import org.springframework.stereotype.Component;
+
 import java.security.SecureRandom;
 import java.util.HexFormat;
 
+@Component
 public class UsernameGenerator {
 
     private static final SecureRandom RANDOM = new SecureRandom();
