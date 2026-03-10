@@ -25,4 +25,9 @@ public class UserService {
         return UserMapper.toDto(savedUser);
     }
 
+    public UserResponseDTO findUser(Long userId) {
+        User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not Found"));
+        return UserMapper.toDto(user);
+    }
+
 }
