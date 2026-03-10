@@ -6,6 +6,7 @@ import com.snaplink.user_service.service.UserService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,12 @@ public class UserController {
     private ResponseEntity<UserResponseDTO> findUser(@PathVariable  @NotNull(message = "User Id cannot be null") Long userId){
         UserResponseDTO userResponseDTO = userService.findUser(userId);
         return ResponseEntity.ok(userResponseDTO);
+    }
+
+    @GetMapping("/auth/{authId}")
+    private ResponseEntity<Long> findUserWithAuth(@PathVariable @NotNull(message = "Auth Id cannot be null") Long authId){
+        Long userId = userService.getUserId(authId);
+        return ResponseEntity.ok(userId);
     }
 
     @PostMapping("/save")
