@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping("/save")
-    private ResponseEntity<UserResponseDTO> saveUser(@Valid UserRequestDTO userRequestDTO){
+    private ResponseEntity<UserResponseDTO> saveUser(@Valid @RequestBody UserRequestDTO userRequestDTO){
         UserResponseDTO userResponseDTO = userService.saveUser(userRequestDTO);
         return ResponseEntity.ok(userResponseDTO);
     }
