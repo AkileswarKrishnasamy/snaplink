@@ -2,6 +2,7 @@ package com.snaplink.auth_service.controller;
 
 import com.snaplink.auth_service.config.JwtProperties;
 import com.snaplink.auth_service.dto.UserLoginRequestDTO;
+import com.snaplink.auth_service.dto.UserLoginResponseDTO;
 import com.snaplink.auth_service.dto.UserRegistrationRequestDTO;
 import com.snaplink.auth_service.service.AuthService;
 import com.snaplink.auth_service.service.JwtService;
@@ -37,7 +38,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@Valid @RequestBody UserLoginRequestDTO userLoginRequestDTO, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+    public ResponseEntity<UserLoginResponseDTO> loginUser(@Valid @RequestBody UserLoginRequestDTO userLoginRequestDTO, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
         String userAgent = httpServletRequest.getHeader("User-Agent");
         String ipAddr = httpServletRequest.getRemoteAddr();
 
@@ -50,6 +51,7 @@ public class AuthController {
         refreshCookie.setMaxAge((int) (jwtProperties.getRefreshTokenExpiration() / 1000));
         httpServletResponse.addCookie(refreshCookie);
 
-        return ResponseEntity.ok(tokenPair.accessToken());
+        UserLoginResponseDTO userLoginResponseDTO = new UserLoginResponseDTO(tokenPair.accessToken(), "Bearer", jwtProperties.getAccessTokenExpiration()/1000);
+        return ResponseEntity.ok(userLoginResponseDTO);
     }
 }
