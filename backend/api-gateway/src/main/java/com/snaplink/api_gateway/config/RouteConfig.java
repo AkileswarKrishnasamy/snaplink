@@ -12,6 +12,9 @@ public class RouteConfig {
         return builder.routes()
                 .route("url-route", r -> r.path("/api/url/**")
                         .uri("lb://url-service"))
+                .route("auth-route", r -> r.path("/api/auth/**")
+                        .filters(f -> f.stripPrefix(1))
+                        .uri("lb://auth-service"))
                 .build();
     }
 }
