@@ -27,7 +27,7 @@ public class JwtAuthenticationFilter implements GlobalFilter {
             return chain.filter(exchange);
         } else if (path.equals("/auth/refresh")) {
             HttpCookie cookie = exchange.getRequest().getCookies().getFirst("refresh-token");
-            if (cookie == null) return exchange.getResponse().setComplete();
+            if (cookie == null) return returnUnauthorized(exchange);
             token = cookie.getValue();
         } else {
             String authHeader = exchange.getRequest().getHeaders().getFirst("Authorization");
