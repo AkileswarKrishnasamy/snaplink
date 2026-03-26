@@ -15,6 +15,9 @@ public class RouteConfig {
                 .route("auth-route", r -> r.path("/api/auth/**")
                         .filters(f -> f.stripPrefix(1))
                         .uri("lb://auth-service"))
+                .route("user-route", r -> r.path("/api/users/**")
+                        .filters(f -> f.stripPrefix(1))
+                        .uri("lb://user-service"))
                 .build();
     }
 }
