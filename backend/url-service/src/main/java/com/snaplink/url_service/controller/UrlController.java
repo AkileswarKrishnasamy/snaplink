@@ -37,7 +37,9 @@ public class UrlController {
     public ResponseEntity<String> getActualUrl(HttpServletRequest httpRequest, @PathVariable String encodedUrl){
 
         log.info("Received encodedUrl: '{}'", encodedUrl);
-        String actualUrl = urlService.getActualUrl(encodedUrl);
+        String ipAddr = httpRequest.getRemoteAddr();
+        String userAgent = httpRequest.getHeader("User-Agent");
+        String actualUrl = urlService.getActualUrl(encodedUrl, ipAddr, userAgent);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create(actualUrl));
         return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).headers(headers).build();
