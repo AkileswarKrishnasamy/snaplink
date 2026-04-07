@@ -13,7 +13,6 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +31,7 @@ public class UrlService {
     public UrlMappingResponseDTO shortUrl(UrlMappingRequestDTO urlMappingRequestDTO){
         UrlMapping urlMapping = UrlMapper.requestDTOToEntity(urlMappingRequestDTO);
 
-        String encodedUrl = EncoderUtil.encode(urlMapping.getActualUrl());
+        String encodedUrl = EncoderUtil.encode();
         urlMapping.setEncodedUrl(encodedUrl);
 
         UrlMapping urlMappingDB = urlRepository.save(urlMapping);
