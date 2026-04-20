@@ -1,0 +1,31 @@
+# Snaplink URL Shortener
+
+A full-stack URL shortening service with analytics tracking, built with Spring Boot and React.
+
+---
+
+## Features
+
+- Shorten long URLs into compact, shareable links
+- Track click analytics (IP, user agent, timestamp)
+- User authentication with session management
+- Per-link analytics toggle
+
+
+## Database Schema
+
+![Database Schema](./docs/images/schema.svg)
+
+### Tables
+
+| Table | Description |
+|---|---|
+| `auth` | Stores user credentials (email, password) |
+| `users` | Stores user profile information |
+| `AuthSession` | Manages active user sessions and tokens |
+| `UrlMapping` | Maps short codes to original URLs |
+| `Analytics` | Tracks click events per short URL |
+
+
+
+
