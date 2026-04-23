@@ -1,11 +1,11 @@
 package com.snaplink.url_service.repository;
 
 import com.snaplink.url_service.model.UrlMapping;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UrlRepository extends MongoRepository<UrlMapping, String> {
+public interface UrlRepository extends JpaRepository<UrlMapping, Long> {
 
-    Optional<UrlMapping> findByEncodedUrl(String encodedUrl);
+    Optional<UrlMapping> findByShortCode(String shortCode);
 }

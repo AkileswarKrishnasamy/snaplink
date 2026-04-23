@@ -1,22 +1,29 @@
 package com.snaplink.url_service.model;
 
+import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+
 
 @Data
-@Document(collection = "url")
+@Table(name = "url_mapping")
+@Entity
 public class UrlMapping {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "url_mapping_id")
+    private Long urlMappingId;
 
+    @Column(name = "user_id")
     private Long userId;
 
-    private String encodedUrl;
+    @Column(name = "short_code", nullable = false)
+    private String shortCode;
 
+    @Column(name = "actual_url", nullable = false)
     private String actualUrl;
 
+    @Column(name = "is_data_analytics_required")
     private Boolean isDataAnalyticsRequired;
 
 }

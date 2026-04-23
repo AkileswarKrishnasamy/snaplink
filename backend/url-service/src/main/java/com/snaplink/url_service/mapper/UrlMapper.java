@@ -8,7 +8,7 @@ public class UrlMapper {
 
     public static UrlMappingResponseDTO entityToResponseDTO(UrlMapping urlMapping){
         return new UrlMappingResponseDTO(urlMapping.getUserId(),
-                urlMapping.getEncodedUrl(),
+                urlMapping.getShortCode(),
                 urlMapping.getActualUrl(),
                 urlMapping.getIsDataAnalyticsRequired());
     }

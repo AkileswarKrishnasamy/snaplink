@@ -31,8 +31,8 @@ public class UrlService {
     public UrlMappingResponseDTO shortUrl(UrlMappingRequestDTO urlMappingRequestDTO){
         UrlMapping urlMapping = UrlMapper.requestDTOToEntity(urlMappingRequestDTO);
 
-        String encodedUrl = EncoderUtil.encode();
-        urlMapping.setEncodedUrl(encodedUrl);
+        String shortCode = EncoderUtil.encode();
+        urlMapping.setShortCode(shortCode);
 
         UrlMapping urlMappingDB = urlRepository.save(urlMapping);
         return UrlMapper.entityToResponseDTO(urlMappingDB);
@@ -42,13 +42,13 @@ public class UrlService {
      * Get actual URL from the Database
      * @return Actual Url
      */
-    public String getActualUrl(String encodedUrl, String ipAddr, String userAgent){
-        UrlMapping urlMapping = urlRepository.findByEncodedUrl(encodedUrl).orElseThrow(() -> new RuntimeException("Url with given encodedurl not found"));
+    public String getActualUrl(String shortCode, String ipAddr, String userAgent){
+        UrlMapping urlMapping = urlRepository.findByShortCode(shortCode).orElseThrow(() -> new RuntimeException("Url with given encodedurl not found"));
         if(urlMapping.getIsDataAnalyticsRequired()){
             RedirectEvent redirectEvent = new RedirectEvent();
             redirectEvent.setIp(ipAddr);
             redirectEvent.setTimestamp(Instant.now());
-            redirectEvent.setShortCode(encodedUrl);
+            redirectEvent.setShortCode(shortCode);
             redirectEvent.setUserAgent(userAgent);
             kafkaTemplate.send(analyticsTopic, redirectEvent);
         }
