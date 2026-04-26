@@ -14,12 +14,4 @@ public class AnalyticsController {
 
     private final AnalyticsService analyticsService;
 
-    @GetMapping("/{shortCode}")
-    public ResponseEntity<Page<Analytics>> getAnalyticsByShortCode(@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
-                                                                   @RequestParam(value = "size", required = false, defaultValue = "10") Integer size,
-                                                                   @PathVariable String shortCode) {
-        Page<Analytics> analyticsList = analyticsService.getAnalyticsDataForShortCode(shortCode, page, size);
-        return ResponseEntity.ok(analyticsList);
-    }
-
 }

@@ -17,8 +17,8 @@ public class KafkaListener {
             topics = "${spring.kafka.analytics-topic}", groupId = "group-analytics")
     public void redirectEventListener(RedirectEvent redirectEvent){
         Analytics analytics = Analytics.builder()
-                .ip(redirectEvent.getIp())
-                .shortCode(redirectEvent.getShortCode())
+                .ipAddress(redirectEvent.getIpAddress())
+                .urlMappingId(redirectEvent.getUrlMappingId())
                 .userAgent(redirectEvent.getUserAgent())
                 .timeStamp(redirectEvent.getTimestamp())
                 .build();

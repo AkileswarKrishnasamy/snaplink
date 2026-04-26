@@ -8,12 +8,14 @@ import com.snaplink.url_service.model.UrlMapping;
 import com.snaplink.url_service.repository.UrlRepository;
 import com.snaplink.url_service.utils.EncoderUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UrlService {
@@ -46,9 +48,9 @@ public class UrlService {
         UrlMapping urlMapping = urlRepository.findByShortCode(shortCode).orElseThrow(() -> new RuntimeException("Url with given encodedurl not found"));
         if(urlMapping.getIsDataAnalyticsRequired()){
             RedirectEvent redirectEvent = new RedirectEvent();
-            redirectEvent.setIp(ipAddr);
+            redirectEvent.setIpAddress(ipAddr);
             redirectEvent.setTimestamp(Instant.now());
-            redirectEvent.setShortCode(shortCode);
+            redirectEvent.setUrlMappingId(urlMapping.getUrlMappingId());
             redirectEvent.setUserAgent(userAgent);
             kafkaTemplate.send(analyticsTopic, redirectEvent);
         }

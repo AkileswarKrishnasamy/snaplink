@@ -20,9 +20,4 @@ public class AnalyticsService {
         analyticsRepository.save(analytics);
     }
 
-    public Page<Analytics> getAnalyticsDataForShortCode(String shortCode, Integer page, Integer size){
-        Pageable pageable = PageRequest.of(page, size, Sort.by("timeStamp"));
-        return analyticsRepository.findAnalyticsByShortCode(shortCode, pageable);
-    }
-
 }

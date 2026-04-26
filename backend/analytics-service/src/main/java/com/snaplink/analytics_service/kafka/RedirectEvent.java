@@ -6,8 +6,8 @@ import java.time.Instant;
 
 @Data
 public class RedirectEvent {
-    private String shortCode;
+    private Long urlMappingId;
+    private String ipAddress;
     private Instant timestamp;
-    private String ip;
     private String userAgent;
 }

@@ -20,14 +20,14 @@ public class Analytics {
     @Column(name = "event_id")
     private Long eventId;
 
-    @Column(name = "short_code")
-    private String shortCode;
+    @Column(name = "url_mapping_id")
+    private Long urlMappingId;
 
     @Column(name = "timestamp")
     private Instant timeStamp;
 
-    @Column(name = "ip")
-    private String ip;
+    @Column(name = "ip_address")
+    private String ipAddress;
 
     @Column(name = "user_agent")
     private String userAgent;
